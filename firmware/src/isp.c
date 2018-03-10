@@ -28,9 +28,9 @@ void spiHWenable() {
 
 void ispSetSCKOption(uchar option) {
 
-	/* aleh: 375 kHz felt a bit slow, even 1500 was working for me, but putting 750 to be safe. */
+	/* aleh: 187.5 kHz SPI clock will make the USBasp work for devices running at 750 kHz and up*/
 	if (option == USBASP_ISP_SCK_AUTO)
-		option = USBASP_ISP_SCK_750;
+		option = USBASP_ISP_SCK_187_5;
 
 	if (option >= USBASP_ISP_SCK_93_75) {
 		ispTransmit = ispTransmit_hw;

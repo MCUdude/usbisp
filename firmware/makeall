@@ -1,0 +1,20 @@
+#!/bin/bash
+#### Execute  ./makeall to build all variants of this firmware
+#### run $ chmod +x if this file isn't executable.
+
+make clean
+
+#ATmega8
+make hex MCU=atmega88
+make clean_build MCU=atmega88
+
+#ATmega88
+make hex MCU=atmega88
+make clean_build MCU=atmega88
+
+
+#ATmega88p
+make hex MCU=atmega88p
+make clean_build MCU=atmega88p
+
+
