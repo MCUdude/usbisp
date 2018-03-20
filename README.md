@@ -1,6 +1,6 @@
 # USBasp on a clone
 
-This is a fork of the original [USBasp](http://www.fischl.de/usbasp/) firmware (the file from [2011-05-28](http://www.fischl.de/usbasp/usbasp.2011-05-28.tar.gz)) tweaked to work with clone "USB ISP Version 2.0" devices (marked "MX-USBISP-V4.00" on the PCB). The original documentation and license is in `Readme.txt`.
+This is a fork of the original [USBasp](http://www.fischl.de/usbasp/) firmware (the file from [2011-05-28](http://www.fischl.de/usbasp/usbasp.2011-05-28.tar.gz)) tweaked to work with clone "USB ISP Version 2.0" devices (marked "MX-USBISP-V4.00" on the PCB).
 
 ## What is USB ISP?
 
@@ -18,13 +18,18 @@ There is a "MX-USBISP-V4.00" label on the back of the PCB, see the photo below. 
 
 ## Quick Start
 
-1. Remove the aluminium shell and put the device into the "self-programming" mode by connecting two pads on the back of the PCB marked with "UP":
+1. Remove the aluminium shell and put the device into the "self-programming" mode by connecting two pads on the back of the PCB marked with "UP". A sharp tweezer may also be used is the holes aren't covered with solder.
 
 	![USBISP PCB Back](usbisp-pcb-back.jpg "PCB — USBISP Version 2.0 / MX-USBISP-V4.00")
 
-2. Connect your favorite programmer to the header of USB ISP referring to the pinout on the case of the device. If you don't have one around, then use an Arduino with `ArduinoISP` example running on it. It is supported by avrdude as `avrisp`. Be sure to set baud rate to 19200.
+2. Connect your programmer to the header of USB ISP referring to the pinout on the case of the device. As for now only USBasp, USBtinyISP and AVRISPMKII is supported without modifying the makefile.
 
-3. Upload the prebuilt firmware in `./firmware/main.hex` and set the fuses to HFUSE=0xDD and LFUSE=0xFF.
+3. Upload the prebuilt firmware in the `firmware` folder by running the following commands:
+* `cd` into the frimware folder
+* Set the correct fuses by running `$ make fuses ISP=usbasp`
+	* Change the ISP parameter to select `usbtiny` or `avrispmkii`
+* Load the pre-compiled hex file by running `$ make flash ISP=usbasp MCU=atmega88`
+	* If the programmer uses ATmega88p instead, simply use `MCU=atmega88p`
 
 4. Disable self-programming jumper.
 
@@ -47,14 +52,6 @@ Now connect it to a device to be programmed and read the flash first. If it work
 
 ## Building from Sources
 
-If you have `avr-gcc` toolchain installed, then navigate to `./firmware` and run:
+If you have `avr-gcc` toolchain installed, then navigate to `firmware` and run:
 
-	make main.hex
-
-After this succeeds adjust the `Makefile` to suit your programmer and then do:
-
-	make flash && make fuses
-
-Good luck!
-
----
+	./makeall
